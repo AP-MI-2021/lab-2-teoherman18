@@ -6,7 +6,7 @@ def is_palindrome(n):
     Input:
     -n : int
     Output:
-    -True, daca n e palindrom, False in caz contrar
+    -True, daca n e palindrom, False in caz contrar : bool
     '''
     inverse = 0
     copie=n
@@ -80,10 +80,45 @@ def test_get_largest_prime_below():
     assert get_largest_prime_below(50) == 47
 test_get_largest_prime_below()
 
+#7.Determină dacă un număr este antipalindrom: un număr este antipalindrom dacă oricare două cifre egal depărtate de extremități sunt diferite (excepție făcând cifra din mijloc dacă avem un număr impar de cifre).
+def is_antipalindrome(n):
+    """
+    Verifica daca un numar este antipalindrom
+    Input:
+    -n: int
+    Output:
+    -True, daca n e antipalindrom, False in caz contrar : bool
+    """
+
+    invers = 0
+    copie = n
+    while copie > 0:
+        invers = invers * 10 + copie % 10
+        copie = copie // 10
+
+    for i in range(len(str(n)) // 2):
+        if n%10==invers%10:
+            return False
+
+        n=n//10
+        invers=invers//10
+
+    return True
+
+def test_is_antipalindrome():
+
+    assert is_antipalindrome(2794) == True
+    assert is_antipalindrome(4775) == False
+    assert is_antipalindrome(834597) == True
+    assert is_antipalindrome(22) == False
+    assert is_antipalindrome(3) == True
+
+test_is_antipalindrome()
 def main():
     while True:
         print('1. Verificare numar palindrom')
         print('2. Ultimul număr prim mai mic decât un număr dat')
+        print('3. Verificare numar antipalindrom')
         print('x. Iesire din program')
 
         optiune=input('Alege optiunea: ')
@@ -98,6 +133,13 @@ def main():
             n=int(input('Dati numarul n: '))
             valoare=get_largest_prime_below(n)
             print(f'Numarul prim cautat este {valoare}')
+        elif optiune=='3':
+            n = int(input('Dati numarul n: '))
+            if is_antipalindrome(n) == True:
+                print('Numarul este antipalindrom')
+            elif is_antipalindrome(n) == False:
+                print('Numarul nu este antipalindrom')
+
         elif optiune=='x':
             break
         else:
